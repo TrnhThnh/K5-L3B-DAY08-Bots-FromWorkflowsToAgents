@@ -13,7 +13,7 @@
 | --: | ---------------- | ----------- | --------------------------- | ------------- | -------------------------------------------------------------------------- |
 |   1 | Dương Minh Chiến | 2A202603921 | duongchien1472005@gmail.com | duongchien147 | D swarm (baseline, test swarm), benchmark, crash suite, ADR, research card |
 |   2 | Đỗ Anh Thư       | 2A202603815 | adugarux4@gmail.com         | DoAnhThu832004| B single (Single agent ReAct, crash recovery CP3, test single)             |
-|   3 Trần Đức Trung | 2A202603938 | kientrungtd135@gmail.com | kientrungtd135 | Shape A — Workflow, crash recovery, testing |
+|   3 | Trần Đức Trung | 2A202603938 | kientrungtd135@gmail.com | kientrungtd135 | Shape A — Workflow, crash recovery, testing |
 
 Gợi ý chia vai:
 
