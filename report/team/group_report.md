@@ -47,7 +47,7 @@ Crash safety là 20/20 (`src/reports/crash.json`). Ma trận student ra 248 pass
 
 Ba shape nhóm viết pass hết 70 trial. Swarm sai một trial, `R-swarm-C-002-s55`: ở seed 55 nó lấy số ngày trễ trong ticket (5 ngày) thay cho order row (2 ngày) và trả 20.000 VND thay vì từ chối. Trial này tốn 62.22 VND, cao hơn trial đúng của swarm (khoảng 52.3) vì phải tính lại quote. Phân tích chi tiết ở `report/team/swarm_notes.md`.
 
-Chưa có kết quả tự kiểm trên `student_drop/`.
+Đã tự kiểm `student_drop/` không nhãn: xem `src/reports/hidden_selfcheck.json`; không suy ra pass rate hidden từ kết quả này. Phần mở rộng B3 (verifier cho swarm), benchmark public/đối kháng và tự kiểm student drop của biến thể được trình bày riêng trong [bonus_report.md](bonus_report.md).
 
 Quyết định kiến trúc và lý do: xem `report/team/decision_adr.md`. Phiếu nghiên cứu và ablation: xem `report/team/research_card.md`.
 
