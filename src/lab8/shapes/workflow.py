@@ -29,8 +29,14 @@ ones. `lab8.trace.Trace` does this; your own tracer is fine if it matches.
 
 from __future__ import annotations
 
-from lab8.schemas import RunResult
-from lab8.shapes.common import not_implemented
+
+from lab8.db import connect
+from lab8.durability import issue_refund
+from lab8.schemas import Budget, RunResult, make_run_id
+from lab8.shapes.common import finish
+from lab8.tools import (compute_compensation, get_claim_view, lookup_order, tool_cost,)
+from lab8.trace import Trace
+
 
 
 def run_claim(
@@ -42,5 +48,117 @@ def run_claim(
 ) -> RunResult:
     # TODO CP2 (student): thay stub này bằng shape workflow theo các bước ở docstring đầu file.
     # TODO CP3 (student): truyền crash_at vào durability.issue_refund, không bắt InjectedCrash.
-    del store_path, crash_at
-    return not_implemented("workflow", claim_id, seed)
+
+    conn = connect(store_path)
+    budget = Budget()
+    trace = Trace(make_run_id("workflow", claim_id, seed))
+
+    def complete(status, amount=0, reason=None):
+        """Return RunResult and write trace."""
+        trace.add("decision", {
+            "status": status,
+            "reason": reason,
+        })
+
+        return finish(
+            conn,
+            shape="workflow",
+            claim_id=claim_id,
+            seed=seed,
+            status=status,
+            proposal_amount=amount,
+            budget=budget,
+            trace=trace,
+            error_reason=reason,
+        )
+
+    try:
+        # Step 1: Read claim.
+        budget.add_tool(tool_cost())
+        claim = get_claim_view(conn, claim_id)
+
+        trace.add("claim_lookup", {
+            "found": bool(claim.get("found")),
+        })
+
+        if not claim.get("found"):
+            return complete("failed", reason="unknown_claim")
+
+        # Step 2: Missing order ID.
+        if not claim.get("order_id"):
+            return complete(
+                "needs_info",
+                reason="missing_order_id",
+            )
+
+        # Step 3: Verify order visibility.
+        budget.add_tool(tool_cost())
+        order_view = lookup_order(
+            conn,
+            claim["order_id"],
+            claim["principal_id"],
+        )
+
+        trace.add("order_lookup", {
+            "visible": bool(order_view.get("visible")),
+            "reason": order_view.get("reason"),
+        })
+
+        if not order_view.get("visible"):
+            return complete(
+                "escalated",
+                reason=order_view.get("reason"),
+            )
+
+        # Step 4: Calculate quote from trusted order.
+        budget.add_tool(tool_cost())
+        quote = compute_compensation(
+            conn,
+            order_view["order"],
+        )
+
+        amount = int(quote["amount_vnd"])
+
+        trace.add("quote", {
+            "amount_vnd": amount,
+            "reason": quote.get("reason"),
+            "clause_ids": quote.get("clause_ids", []),
+        })
+
+        # Step 5: Deny when entitlement is zero.
+        if amount <= 0:
+            return complete(
+                "denied",
+                reason=quote.get("reason"),
+            )
+
+        # Step 6: Request refund through the host.
+        # Pass crash_at to simulate a crash during refund processing.
+        outcome = issue_refund(
+            conn,
+            claim_id,
+            amount,
+            crash_at=crash_at,
+        )
+
+        trace.add("refund_result", {
+            "ok": bool(outcome["ok"]),
+            "reason": outcome["reason"],
+        })
+
+        if not outcome["ok"]:
+            status = (
+                "failed" if outcome["conflict"]
+                else "denied"
+            )
+            return complete(
+                status,
+                amount=amount,
+                reason=outcome["reason"],
+            )
+
+        # Step 7: Refund succeeded.
+        return complete("resolved", amount=amount)
+
+    finally:
+        conn.close()
