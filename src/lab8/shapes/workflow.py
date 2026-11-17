@@ -49,8 +49,6 @@ def run_claim(
     # TODO CP2 (student): thay stub này bằng shape workflow theo các bước ở docstring đầu file.
     # TODO CP3 (student): truyền crash_at vào durability.issue_refund, không bắt InjectedCrash.
 
-    del crash_at  
-
     conn = connect(store_path)
     budget = Budget()
     trace = Trace(make_run_id("workflow", claim_id, seed))
@@ -135,10 +133,12 @@ def run_claim(
             )
 
         # Step 6: Request refund through the host.
+        # Pass crash_at to simulate a crash during refund processing.
         outcome = issue_refund(
             conn,
             claim_id,
             amount,
+            crash_at=crash_at,
         )
 
         trace.add("refund_result", {
