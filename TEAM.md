@@ -5,7 +5,7 @@
 - Tên nhóm: BOTS
 - Lớp: L3B
 - Repo nhóm: `K5-L3B-DAY08-Bots-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt: https://github.com/TrnhThnh/K5-L3B-DAY08-Bots-FromWorkflowsToAgents
+- URL repo, nhánh nộp, commit chốt: https://github.com/TrnhThnh/K5-L3B-DAY08-Bots-FromWorkflowsToAgents, `main`, `332dd26`
 
 ## Thành viên
 
