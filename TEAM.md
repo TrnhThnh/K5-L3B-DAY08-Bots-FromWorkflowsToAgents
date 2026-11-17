@@ -74,3 +74,22 @@ Sao chép mục dưới đây cho từng thành viên.
 ### Bằng chứng
 
 -
+## 2A202603938_TranDucTrung
+
+### Phần việc phụ trách
+
+- Shape A — Deterministic Workflow (`src/lab8/shapes/workflow.py`), xử lý crash recovery CP3 và kiểm thử Workflow.
+
+### Đóng góp cụ thể
+
+- Commit `b885626`, `15b8dd8`: Triển khai Shape A và bổ sung crash recovery.
+- Commit `838ece2`: Kiểm thử crash safety (20/20 passed).
+- Commit `c5e3942`: Thêm `src/tests/test_workflow_approval_guard.py` (10 tests passed).
+- Kiểm thử Workflow với 62/62 public tests passed.
+
+### Bằng chứng
+
+- `src/lab8/shapes/workflow.py`
+- `src/tests/test_workflow_approval_guard.py` (10 passed).
+- `src/reports/crash.json` (20/20 passed).
+- `report/team/2A202603938_TranDucTrung.md`.
