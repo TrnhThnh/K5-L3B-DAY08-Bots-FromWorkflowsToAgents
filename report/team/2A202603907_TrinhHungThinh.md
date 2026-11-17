@@ -1,13 +1,13 @@
-# Báo cáo cá nhân — Thịnh
+# Báo cáo cá nhân — Trịnh Hưng Thịnh
 
 ## 1. Thông tin thành viên
 
-- Họ tên: Thịnh (bổ sung họ tên đầy đủ trước khi nộp).
+- Họ tên: Trịnh Hưng Thịnh.
 - MSSV: 2A202603907
 - Email: hungthinh05112002@gmail.com
 - GitHub: [TrnhThnh](https://github.com/TrnhThnh)
 - Phần việc: Shape C — orchestrator và investigator chỉ đọc.
-- Báo cáo hiện dùng tên `2A202603907_Thinh.md` theo tên đã cung cấp; đổi phần HoTen thành họ tên đầy đủ không dấu khi có thông tin.
+- Báo cáo hiện dùng tên `2A202603907_TrinhHungThinh.md` theo tên đã cung cấp; đổi phần HoTen thành họ tên đầy đủ không dấu khi có thông tin.
 
 ## 2. Phần việc phụ trách
 
