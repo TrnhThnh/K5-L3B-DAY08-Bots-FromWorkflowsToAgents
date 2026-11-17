@@ -14,6 +14,7 @@
 |   1 | Dương Minh Chiến | 2A202603921 | duongchien1472005@gmail.com | duongchien147 | D swarm (baseline, test swarm), benchmark, crash suite, ADR, research card |
 |   2 | Đỗ Anh Thư       | 2A202603815 | adugarux4@gmail.com         | DoAnhThu832004| B single (Single agent ReAct, crash recovery CP3, test single)             |
 |   3 | Trần Đức Trung | 2A202603938 | kientrungtd135@gmail.com | kientrungtd135 | Shape A — Workflow, crash recovery, testing |
+|   4 | Thịnh | 2A202603907 | hungthinh05112002@gmail.com | [TrnhThnh](https://github.com/TrnhThnh) | Shape C: orchestrator, handoff chỉ đọc, trace an toàn và crash recovery |
 
 Gợi ý chia vai:
 
@@ -29,6 +30,7 @@ Gợi ý chia vai:
 | Dương Minh Chiến | D swarm, benchmark, báo cáo | ed6ba8c, be417ce | src/tests/test_swarm_analysis.py (14 test) |
 | Trần Đức Trung | Shape A — Workflow, testing | b885626, 15b8dd8, 838ece2, c5e3942 | src/tests/test_workflow_approval_guard.py (10 tests) |
 | Đỗ Anh Thư       | B single                    | 8f8368f, 523138f | src/tests/test_single_agent.py (8 test)    |
+| Thịnh | Shape C: orchestrator và investigator chỉ đọc | [c93c6c3](https://github.com/TrnhThnh/K5-L3B-DAY08-Bots-FromWorkflowsToAgents/commit/c93c6c3ca15248f7404fb5ac52fb71b68a5ea683) | `src/tests/test_thinh_orchestrator.py`: unknown claim, ticket injection/handoff, crash và resume tại ba điểm |
 
 ## Cá nhân
 
@@ -93,3 +95,21 @@ Sao chép mục dưới đây cho từng thành viên.
 - `src/tests/test_workflow_approval_guard.py` (10 passed).
 - `src/reports/crash.json` (20/20 passed).
 - `report/team/2A202603938_TranDucTrung.md`.
+
+## 2A202603907_Thinh
+
+### Phần việc phụ trách
+
+- Shape C trong `src/lab8/shapes/orchestrator.py`: orchestrator giao việc bằng `make_handoff`; investigator chỉ dùng tool đọc; host kiểm approval và ghi refund.
+
+### Đóng góp cụ thể
+
+- Commit `c93c6c3` triển khai C và thêm năm test regression riêng; đã merge vào `main` qua PR #1.
+- Dùng quote đầy đủ, không tự trừ refund lịch sử; ghi trace có allowlist, để `InjectedCrash` truyền ra và đóng connection trong `finally`.
+- Codex hỗ trợ triển khai, kiểm thử và báo cáo; báo cáo cá nhân ghi rõ phạm vi hỗ trợ AI.
+
+### Bằng chứng
+
+- Báo cáo: [2A202603907_Thinh.md](report/team/2A202603907_Thinh.md).
+- Tự kiểm student drop: `src/reports/hidden_selfcheck.json` (không có nhãn, không suy ra pass rate).
+- Tên hiện dùng là Thịnh theo thông tin đã cung cấp; bổ sung họ tên đầy đủ và đổi tên báo cáo tương ứng trước khi nộp.
