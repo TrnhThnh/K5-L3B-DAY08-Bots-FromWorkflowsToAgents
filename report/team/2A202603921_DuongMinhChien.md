@@ -38,9 +38,14 @@ Quyết định kỹ thuật tôi đề xuất là chọn `workflow`. Ba shape n
 
 ## 5. Công cụ AI đã dùng
 
-Trợ lý AI lập trình chạy trong VS Code. Tôi dùng nó để đọc codebase, giải thích cơ chế `REFERENCE_WEAKNESS` của swarm, gợi ý và viết test trong `test_swarm_analysis.py`, chạy benchmark và crash suite, và soạn nháp ADR, research card.
+Trợ lý AI lập trình claude chạy trong VS Code. Tôi dùng nó để đọc codebase, giải thích cơ chế `REFERENCE_WEAKNESS` của swarm, gợi ý và viết test trong `test_swarm_analysis.py`, chạy benchmark và crash suite, và soạn nháp ADR, research card.
 
 Cách kiểm tra: chạy lại `python -m pytest -q`, `python -m pytest -q -m student -o addopts=` (248 passed) và `python -m lab8.check_submission`. Đối chiếu từng con số trong báo cáo với `src/reports/benchmark.json`. Đọc trace `R-swarm-C-002-s55` và `R-workflow-C-002-s55` để xác nhận lỗi seed 55. Phần trích dẫn paper MAST trong research card cần đối chiếu lại với bản gốc trên arXiv.
 
 ## 6. Tự đánh giá
 
+Phần tôi làm chắc nhất là đo swarm. Test của tôi cho thấy trên 12 claim × 5 seed của tập public, lỗi chỉ xảy ra ở (C-002, 55), và trace có `model_override` ở đúng trial đó. Benchmark trên 14 claim cho kết quả khớp: workflow đạt pass^5 1.000 với cost/success 27.86 VND, swarm chỉ đạt 0.929 với 49.57 VND. Tôi cũng thử crash ở cả 3 điểm, trong khi crash suite gốc chỉ thử swarm ở một điểm.
+
+Điểm chưa tốt là lúc phân việc, tôi chưa rõ phần việc của mình.
+
+Nếu làm lại, tôi sẽ tự chạy lại và đọc trace trước khi tin số liệu, đọc paper gốc trước khi điền research card, và báo nhóm sớm hơn khi thấy một phần còn trống.
