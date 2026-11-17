@@ -18,7 +18,17 @@ Nhóm hiểu bài toán thế nào, chia việc ra sao, thứ tự làm bốn sh
 
 Mô tả ba shape nhóm viết (workflow, single, orchestrator): mỗi shape đọc gì, quyết định gì, gọi host ra sao. Chỉ rõ ranh giới code / model (tham khảo [docs/architecture.md](../../docs/architecture.md)), cách handoff được sanitize và trace ghi những event nào.
 
-...
+### Shape A — Deterministic Workflow
+
+Shape A sử dụng quy trình Python cố định để xử lý yêu cầu hoàn phí vận chuyển mà không cần gọi LLM. Việc điều hướng được thực hiện bằng các điều kiện trong `run_claim()`.
+
+Quy trình gồm: đọc claim bằng `get_claim_view()`, kiểm tra `order_id`, xác minh quyền truy cập với `lookup_order()`, tính mức hoàn bằng `compute_compensation()` và chuyển yêu cầu hoàn tiền cho `durability.issue_refund()`.
+
+Các quyết định về số tiền, approval và ghi refund được thực hiện bằng code và host, không phụ thuộc nội dung ticket. Workflow sử dụng `finish()` để trả về `RunResult` và ghi trace theo contract.
+
+Đối với khả năng phục hồi, Shape A truyền `crash_at` cho durability layer. Khi chương trình gặp crash, cơ chế idempotency ngăn việc hoàn tiền trùng trong lần chạy lại.
+
+**Kết quả:** Workflow đạt 62/62 public student tests. Trong benchmark nhóm trên 70 trials, Workflow đạt pass rate 100%, pass⁵ 100%, seed variance bằng 0 và cost per success mô phỏng là 27,86 VND.
 
 ## 4. Kết quả
 
