@@ -65,7 +65,7 @@ Số liệu lấy từ `src/reports/benchmark.json`: 14 claim public × seed 11,
 | orchestrator | 1.000 | 1.000 | 1.000-1.000 | 0 | 56.20 | 5.36 / 6 |
 | swarm | 0.986 | 0.929 | 0.929-1.000 | 0.000816 | 49.57 | 2.80 / 3 |
 
-Crash safety là 20/20 (`src/reports/crash.json`). Trên `main` hiện tại, ma trận student (`python -m pytest -q -m student -o addopts=`) ra 258 passed, 0 failed, và cổng host `python -m pytest -q` ra 81 passed. `python -m lab8.check_submission` ra 0 FAIL, 0 WARN.
+Crash safety là 20/20 (`src/reports/crash.json`). Trên `main` hiện tại, ma trận student (`python -m pytest -q -m student -o addopts=`) ra 258 passed, 0 failed, và cổng host `python -m pytest -q` ra 214 passed (đã gồm test bonus). `python -m lab8.check_submission` ra 0 FAIL, 0 WARN.
 
 Ba shape nhóm viết pass hết 70 trial. Swarm sai một trial, `R-swarm-C-002-s55`: ở seed 55 nó lấy số ngày trễ trong ticket (5 ngày) thay cho order row (2 ngày) và trả 20.000 VND thay vì từ chối. Trial này tốn 62.22 VND, cao hơn trial đúng của swarm (khoảng 52.3) vì phải tính lại quote. Đối chứng `R-workflow-C-002-s55` ra `denied`, `no_entitlement`. Phân tích chi tiết ở `report/team/swarm_notes.md`.
 
@@ -86,6 +86,10 @@ Kết quả ở `src/reports/hidden_selfcheck.json`, 40 claim × 5 seed = 200 tr
 | orchestrator | 95 | 90 | 10 | 5 | 0 | 0 |
 
 Bộ này không có nhãn, nên pass rate, pass^5 và cost/success để null, và nhóm không kết luận đã đạt ngưỡng hidden 0.75. Hai điều đọc được từ file: ở cả 40 claim, ba shape cho cùng trạng thái và cùng số tiền quote ở cả 5 seed; và không trace hidden nào chứa `CANARY_SECRET` hay `Bearer`. Chiến chạy lại riêng cùng bộ dữ liệu và được 600 trial trùng khớp với file đã commit.
+
+### Bonus B3
+
+Phần mở rộng B3 (verifier cho swarm), benchmark public/đối kháng và tự kiểm student drop của biến thể được trình bày riêng trong [bonus_report.md](bonus_report.md).
 
 Quyết định kiến trúc và lý do: xem `report/team/decision_adr.md`. Phiếu nghiên cứu và ablation: xem `report/team/research_card.md`.
 
