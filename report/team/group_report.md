@@ -4,7 +4,7 @@
 
 - Tên nhóm: BOTS
 - Thành viên: xem `TEAM.md`
-- Commit chốt (trùng `report/team/decision_adr.md`): 166907f
+- Commit chốt (trùng `report/team/decision_adr.md`): 332dd26
 
 | Thành viên | MSSV | Phần việc |
 | --- | --- | --- |
@@ -56,7 +56,7 @@ Cả ba shape không ghi claim row đầy đủ, nội dung ticket, `parent_secr
 
 ## 4. Kết quả
 
-Số liệu lấy từ `src/reports/benchmark.json`: 14 claim public × seed 11, 22, 33, 44, 55, mỗi shape 70 trial, chạy trên commit `166907f`.
+Số liệu lấy từ `src/reports/benchmark.json`: 14 claim public × seed 11, 22, 33, 44, 55, mỗi shape 70 trial. Lần chạy đầu trên commit `166907f`; chạy lại trên commit chốt `332dd26` cho ra file trùng từng byte.
 
 | Shape | pass | pass^5 | seed min-max | variance | cost/success (VND) | mean / p95 steps |
 | --- | --- | --- | --- | --- | --- | --- |
